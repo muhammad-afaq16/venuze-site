@@ -314,7 +314,7 @@ export default function FeaturedVenues() {
 
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
-  const [activeFilter, setActiveFilter] = useState('Gallery');
+  const [activeFilter, setActiveFilter] = useState('Outdoor');
 
   const visibleVenues = venues.filter(
     (venue) => venue.category === activeFilter,

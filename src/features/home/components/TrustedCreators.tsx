@@ -7,6 +7,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Swap `image` with your real image paths/URLs whenever they're ready.
 const vendors = [
@@ -146,35 +147,51 @@ export default function TrustedCreators() {
           </div>
         </div>
       </div>
-      {/* Vendor CTA banner */}
-      <div className='-mt-16 max-w-6xl mx-auto overflow-hidden rounded-2xl bg-gradient-to-r from-[#F4655A] via-[#F58236] to-[#F9C531]'>
-        <div className='flex flex-col items-center gap-6 px-8 py-8 sm:px-10 md:flex-row md:justify-between'>
-          {/* Copy */}
-          <div className='max-w-lg text-center md:text-left'>
-            <h3 className='text-2xl font-semibold leading-[30px] tracking-normal text-white sm:text-[1.75rem]'>
-              Grow Your Business with <br /> Venuze
-            </h3>
-            <p className='mt-3 text-[14px] font-medium leading-relaxed text-white/95'>
-              Showcase your services to thousands of event organizers and
-              creators <br /> searching for talent like yours.
-            </p>
-            <Link
-              href='/vendors/join'
-              className='mt-5 inline-block rounded-[10px] bg-[#111111] px-9.25 py-3 text-[13px] font-medium text-white transition hover:bg-black'
-            >
-              Join as a Vendor
-            </Link>
-          </div>
+        {/* Vendor CTA banner */}
+        <div className='-mt-16 mx-auto max-w-6xl px-4'>
+          <div className='relative h-[198px] overflow-hidden rounded-[13px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
+            {/* Content */}
+            <div className='absolute left-[7%] top-[20px] z-20'>
+              <h3 className='text-[28px] font-semibold leading-[33px] tracking-[-0.3px] text-white'>
+                Grow Your Business with
+                <br />
+                Venuze
+              </h3>
 
-          {/* Illustration */}
-          <img
-            src='/images/home/vendors/cta-illustration.png'
-            alt=''
-            aria-hidden='true'
-            className='w-full max-w-[320px] md:max-w-[360px]'
-          />
+              <p className='mt-[9px] max-w-[500px] text-[14px] font-medium leading-[20px] text-white'>
+                Showcase your services to thousands of event organizers and
+                creators
+                <br />
+                searching for talent like yours.
+              </p>
+
+              <Link
+                href='/vendors/join'
+                className='mt-[14px] inline-flex h-[34px] items-center rounded-[6px] bg-black px-[25px] text-[13px] font-medium text-white'
+              >
+                Join as a Vendor
+              </Link>
+            </div>
+
+            {/* Arrow */}
+            <Image
+              src='/svgs/arrow.png'
+              alt=''
+              aria-hidden='true'
+              width={140}
+              height={70}
+              className='absolute left-[34%] top-[120px] z-10 w-[135px]'
+            />
+
+            {/* Illustration */}
+            <img
+              src='/images/home/cta-illustration.png'
+              alt=''
+              aria-hidden='true'
+              className='absolute bottom-0 right-[3%] z-10 w-[320px] lg:w-[350px]'
+            />
+          </div>
         </div>
-      </div>
     </section>
   );
 }
