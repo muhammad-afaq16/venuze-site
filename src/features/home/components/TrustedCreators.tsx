@@ -91,13 +91,12 @@ export default function TrustedCreators() {
               pauseOnMouseEnter: true,
             }}
             onBeforeInit={(swiper) => {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
+              swiper.params.navigation = {
+                prevEl: prevRef.current,
+                nextEl: nextRef.current,
+              };
             }}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
+            navigation={true}
             spaceBetween={24}
             slidesPerView={1.15}
             breakpoints={{

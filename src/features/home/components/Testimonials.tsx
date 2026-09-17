@@ -136,15 +136,12 @@ export default function Testimonials() {
           <Swiper
             modules={[Navigation]}
             onBeforeInit={(swiper: SwiperType) => {
-              if (typeof swiper.params.navigation !== 'boolean') {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-              }
+              swiper.params.navigation = {
+                prevEl: prevRef.current,
+                nextEl: nextRef.current,
+              };
             }}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
+            navigation={true}
             spaceBetween={20}
             slidesPerView={1}
             breakpoints={{
