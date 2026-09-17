@@ -16,44 +16,42 @@ const LANGUAGE_OPTIONS = [
   { label: 'Français', code: 'FR' },
 ];
 
-export default function Hero() {
-  const [activeTab, setActiveTab] = useState<'venue' | 'vendors'>('venue');
+const LOCATION_OPTIONS = ['Dubai, UAE', 'Abu Dhabi, UAE', 'Sharjah, UAE'];
+const DATE_OPTIONS = ['Anytime', 'Today', 'This weekend', 'Next weekend'];
+const GUEST_OPTIONS = ['1-10', '10-20', '20-50', '50+'];
 
-  const [isListingOpen, setIsListingOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
+type DropdownKey = 'listing' | 'lang' | 'location' | 'date' | 'guests';
+
+export default function Hero() {
+  const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [selectedLang, setSelectedLang] = useState(LANGUAGE_OPTIONS[0]);
+  const [selectedLocation, setSelectedLocation] = useState(LOCATION_OPTIONS[0]);
+  const [selectedDate, setSelectedDate] = useState(DATE_OPTIONS[0]);
+  const [selectedGuests, setSelectedGuests] = useState(GUEST_OPTIONS[1]);
 
-  const listingRef = useRef<HTMLDivElement>(null);
-  const langRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        listingRef.current &&
-        !listingRef.current.contains(event.target as Node)
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
       ) {
-        setIsListingOpen(false);
-      }
-
-      if (
-        langRef.current &&
-        !langRef.current.contains(event.target as Node)
-      ) {
-        setIsLangOpen(false);
+        setOpenDropdown(null);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const toggle = (key: DropdownKey) =>
+    setOpenDropdown((prev) => (prev === key ? null : key));
+
   return (
-    <section className='relative w-full h-140 md:h-155 overflow-hidden rounded-b-2xl'>
+    <section
+      ref={containerRef}
+      className='relative w-full h-140 md:h-155 overflow-hidden rounded-b-2xl'
+    >
       {/* Background image */}
       <Image
         src='/images/home/hero-bg.png'
@@ -65,7 +63,6 @@ export default function Hero() {
 
       {/* Top navbar */}
       <div className='relative z-30 flex items-center justify-between px-6 md:px-10 pt-6'>
-        {/* Logo */}
         <div className='flex items-center gap-2'>
           <Image
             src='/images/home/venuze-logo.png'
@@ -75,33 +72,28 @@ export default function Hero() {
           />
         </div>
 
-        {/* Right nav actions */}
         <div className='flex items-center gap-3'>
           {/* Add your listing dropdown */}
-          <div ref={listingRef} className='relative'>
+          <div className='relative'>
             <button
-              onClick={() => {
-                setIsListingOpen((prev) => !prev);
-                setIsLangOpen(false);
-              }}
+              onClick={() => toggle('listing')}
               className='flex cursor-pointer items-center gap-1 rounded-[10px] bg-white px-4 py-2 text-sm font-medium text-[#FF5037] transition-colors hover:bg-white/90'
             >
               Add your listing
-
               <ChevronDown
                 className={`h-4 w-4 text-[#6B7280] transition-transform ${
-                  isListingOpen ? 'rotate-180' : ''
+                  openDropdown === 'listing' ? 'rotate-180' : ''
                 }`}
               />
             </button>
 
-            {isListingOpen && (
+            {openDropdown === 'listing' && (
               <div className='absolute right-0 mt-2 w-52 overflow-hidden rounded-[10px] bg-white py-1 shadow-lg'>
                 {LISTING_OPTIONS.map((option) => (
                   <Link
                     key={option.href}
                     href={option.href}
-                    onClick={() => setIsListingOpen(false)}
+                    onClick={() => setOpenDropdown(null)}
                     className='block px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-gray-100'
                   >
                     {option.label}
@@ -112,36 +104,31 @@ export default function Hero() {
           </div>
 
           {/* Language dropdown */}
-          <div ref={langRef} className='relative'>
+          <div className='relative'>
             <button
-              onClick={() => {
-                setIsLangOpen((prev) => !prev);
-                setIsListingOpen(false);
-              }}
+              onClick={() => toggle('lang')}
               className='flex cursor-pointer items-center gap-1 rounded-[10px] bg-white px-3 py-2 text-sm font-medium text-[#FF5037] transition-colors hover:bg-white/90'
             >
               {selectedLang.code}
-
               <ChevronDown
                 className={`h-4 w-4 text-[#6B7280] transition-transform ${
-                  isLangOpen ? 'rotate-180' : ''
+                  openDropdown === 'lang' ? 'rotate-180' : ''
                 }`}
               />
             </button>
 
-            {isLangOpen && (
+            {openDropdown === 'lang' && (
               <div className='absolute right-0 mt-2 w-36 overflow-hidden rounded-[10px] bg-white py-1 shadow-lg'>
                 {LANGUAGE_OPTIONS.map((language) => (
                   <button
                     key={language.code}
                     onClick={() => {
                       setSelectedLang(language);
-                      setIsLangOpen(false);
+                      setOpenDropdown(null);
                     }}
                     className='flex w-full cursor-pointer items-center justify-between px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-gray-100'
                   >
                     <span>{language.label}</span>
-
                     <span className='text-xs text-gray-400'>
                       {language.code}
                     </span>
@@ -151,7 +138,6 @@ export default function Hero() {
             )}
           </div>
 
-          {/* User button */}
           <button className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-[10px] bg-white text-[#FF5037] transition-colors hover:bg-white/90'>
             <User className='h-4 w-4' />
           </button>
@@ -168,19 +154,10 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* Search card */}
         <div className='z-10 w-[92%] max-w-3xl'>
-          {/* Venue / Vendors toggle */}
           <div className='flex justify-center'>
             <div className='relative z-20 -mb-3 flex rounded-[10px] bg-white px-2 py-[.44rem] shadow-md'>
-              <button
-                onClick={() => setActiveTab('venue')}
-                className={`flex cursor-pointer items-center gap-1.5 rounded-[10px] px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === 'venue'
-                    ? 'bg-[#FF5037] text-white'
-                    : 'text-black hover:bg-gray-100'
-                }`}
-              >
+              <button className='flex items-center gap-1.5 rounded-[10px] bg-[#FF5037] px-4 py-2 text-sm font-medium text-white'>
                 <Image
                   src='/svgs/venue.svg'
                   alt='Venue'
@@ -189,15 +166,7 @@ export default function Hero() {
                 />
                 Venue
               </button>
-
-              <button
-                onClick={() => setActiveTab('vendors')}
-                className={`flex cursor-pointer items-center gap-1.5 rounded-[10px] px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === 'vendors'
-                    ? 'bg-[#FF5037] text-white'
-                    : 'text-black hover:bg-gray-100'
-                }`}
-              >
+              <button className='flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-sm font-medium text-black'>
                 <Image
                   src='/svgs/vendors.svg'
                   alt='Vendors'
@@ -209,39 +178,94 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Search bar */}
           <div className='flex flex-col items-stretch gap-3 rounded-2xl bg-white p-3 shadow-xl md:flex-row md:items-center md:gap-0 md:rounded-[10px]'>
             {/* Where */}
-            <div className='flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
+            <div className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
               <p className='text-xs text-[#808080]'>Where</p>
-
-              <button className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'>
-                Dubai, UAE
+              <button
+                onClick={() => toggle('location')}
+                className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'
+              >
+                {selectedLocation}
                 <ChevronDown className='h-4 w-4 text-[#6B7280]' />
               </button>
+
+              {openDropdown === 'location' && (
+                <div className='absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-[10px] bg-white py-1 shadow-lg'>
+                  {LOCATION_OPTIONS.map((location) => (
+                    <button
+                      key={location}
+                      onClick={() => {
+                        setSelectedLocation(location);
+                        setOpenDropdown(null);
+                      }}
+                      className='flex w-full px-4 py-3 text-left text-sm text-gray-700 transition-colors hover:bg-gray-100'
+                    >
+                      {location}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* When */}
-            <div className='flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
+            <div className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
               <p className='text-xs text-[#808080]'>When</p>
-
-              <button className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'>
-                Anytime
+              <button
+                onClick={() => toggle('date')}
+                className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'
+              >
+                {selectedDate}
                 <ChevronDown className='h-4 w-4 text-[#6B7280]' />
               </button>
+
+              {openDropdown === 'date' && (
+                <div className='absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-[10px] bg-white py-1 shadow-lg'>
+                  {DATE_OPTIONS.map((date) => (
+                    <button
+                      key={date}
+                      onClick={() => {
+                        setSelectedDate(date);
+                        setOpenDropdown(null);
+                      }}
+                      className='flex w-full px-4 py-3 text-left text-sm text-gray-700 transition-colors hover:bg-gray-100'
+                    >
+                      {date}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Guests */}
-            <div className='flex-1 px-4 py-2 text-left'>
+            <div className='relative flex-1 px-4 py-2 text-left'>
               <p className='text-xs text-[#808080]'>Guests</p>
-
-              <button className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'>
-                10-20
+              <button
+                onClick={() => toggle('guests')}
+                className='mt-0.5 flex w-full items-center justify-between text-sm font-medium text-black'
+              >
+                {selectedGuests}
                 <ChevronDown className='h-4 w-4 text-[#6B7280]' />
               </button>
+
+              {openDropdown === 'guests' && (
+                <div className='absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-[10px] bg-white py-1 shadow-lg'>
+                  {GUEST_OPTIONS.map((guests) => (
+                    <button
+                      key={guests}
+                      onClick={() => {
+                        setSelectedGuests(guests);
+                        setOpenDropdown(null);
+                      }}
+                      className='flex w-full px-4 py-3 text-left text-sm text-gray-700 transition-colors hover:bg-gray-100'
+                    >
+                      {guests}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Search button */}
             <button className='flex cursor-pointer items-center justify-center gap-2 self-end rounded-[10px] bg-[#FF5037] px-6 py-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-white transition-colors hover:bg-[#e8452f]'>
               <Image
                 src='/svgs/search.svg'
@@ -257,4 +281,3 @@ export default function Hero() {
     </section>
   );
 }
-
