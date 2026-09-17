@@ -22,6 +22,7 @@ Venuze is designed as a marketing and discovery experience for an event venue pl
 - TypeScript
 - Tailwind CSS
 - Lucide React icons
+- Framer Motion for animations
 - Swiper for carousel interactions
 
 ## Project Structure

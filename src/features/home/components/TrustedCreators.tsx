@@ -81,7 +81,7 @@ export default function TrustedCreators() {
         </div>
 
         {/* Carousel */}
-        <div className='mt-10 max-w-6xl mx-auto'>
+        <div className='mt-10 max-w-350 mx-auto'>
           <Swiper
             modules={[Navigation, Autoplay]}
             loop={true}
@@ -147,7 +147,7 @@ export default function TrustedCreators() {
         </div>
       </div>
       {/* Vendor CTA banner */}
-      <div className='-mt-10 sm:-mt-16 mx-auto max-w-6xl px-4'>
+      <div className='-mt-10 sm:-mt-16 mx-auto max-w-350 px-4'>
         <div className='relative h-[280px] sm:h-[230px] md:h-[198px] overflow-hidden rounded-[13px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
           {/* Content */}
           {/* Content */}

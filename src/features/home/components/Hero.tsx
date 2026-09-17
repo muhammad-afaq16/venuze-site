@@ -73,7 +73,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
-        className='relative w-full min-h-[70vh] md:h-155 overflow-hidden md:rounded-b-2xl'
+        className='relative w-full min-h-[70vh] md:h-155 overflow-hidden md:rounded-none'
       >
       {/* Background image carousel */}
       {HERO_SLIDES.map((src, index) => (

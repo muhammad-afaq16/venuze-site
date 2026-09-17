@@ -2,12 +2,11 @@
 
 import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import { Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
 
-// Swap `image` with your real image paths/URLs whenever they're ready.
 const categories = [
   {
     id: 'celebration',
@@ -33,7 +32,6 @@ const categories = [
     count: 15,
     image: '/images/home/venue-card/card-4.png',
   },
-
   {
     id: 'outdoor',
     title: 'Outdoor\nSpaces',
@@ -49,18 +47,18 @@ const categories = [
 ];
 
 export default function VenueCard() {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <section className='bg-white px-6 pt-8 pb-16 sm:pb-7'>
-      <div className='mx-auto max-w-6xl'>
+    <section className='bg-white px-6 pb-16 pt-8 sm:pb-7'>
+      <div className='mx-auto max-w-350'>
         {/* Heading */}
         <div className='mx-auto text-center'>
-          <h2 className='text-2xl font-semibold text-[#000000] sm:text-[2.3rem] tracking-normal'>
+          <h2 className='text-2xl font-semibold tracking-normal text-[#000000] sm:text-[2.3rem]'>
             Find The Best Venue For Any Occasion
           </h2>
-          <p className='mt-2 max-w-4xl mx-auto text-[#000000]'>
+
+          <p className='mx-auto mt-2 max-w-4xl text-[#000000]'>
             Explore venues by category, from timeless ballrooms and rooftops
             with a view to modern studios and outdoor gardens, discover spaces
             designed to inspire unforgettable experiences.
@@ -70,25 +68,30 @@ export default function VenueCard() {
         {/* Carousel */}
         <div className='mt-10'>
           <Swiper
-            modules={[Navigation, Autoplay]}
+            modules={[Autoplay]}
             loop={true}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
             }}
-            onBeforeInit={(swiper) => {
-              swiper.params.navigation = {
-                prevEl: prevRef.current,
-                nextEl: nextRef.current,
-              };
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
             }}
-            navigation={true}
             spaceBetween={24}
             slidesPerView={1}
             breakpoints={{
-              640: { slidesPerView: 1, spaceBetween: 24 },
-              768: { slidesPerView: 3, spaceBetween: 24 },
-              1024: { slidesPerView: 4, spaceBetween: 24 },
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 24,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 24,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
             }}
           >
             {categories.map((category) => (
@@ -104,7 +107,7 @@ export default function VenueCard() {
                     className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
                   />
 
-                  {/* Gradient overlay for text legibility */}
+                  {/* Gradient overlay */}
                   <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent' />
 
                   {/* Count badge */}
@@ -121,13 +124,13 @@ export default function VenueCard() {
             ))}
           </Swiper>
 
-          {/* Nav arrows */}
-          {/* Nav arrows */}
+          {/* Custom Navigation */}
           <div className='mt-6 hidden justify-end gap-3 lg:flex'>
             <button
-              ref={prevRef}
+              type='button'
               aria-label='Previous'
-              className='flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 disabled:opacity-40'
+              onClick={() => swiperRef.current?.slidePrev()}
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200'
             >
               <svg
                 viewBox='0 0 24 24'
@@ -145,9 +148,10 @@ export default function VenueCard() {
             </button>
 
             <button
-              ref={nextRef}
+              type='button'
               aria-label='Next'
-              className='flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 disabled:opacity-40'
+              onClick={() => swiperRef.current?.slideNext()}
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200'
             >
               <svg
                 viewBox='0 0 24 24'

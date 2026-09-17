@@ -50,7 +50,7 @@ function IconVenue(props: React.SVGProps<SVGSVGElement>) {
 export default function PathToVenue() {
   return (
     <section className='bg-white px-6 py-16 sm:py-20'>
-      <div className='mx-auto max-w-6xl'>
+      <div className='mx-auto max-w-350'>
         {/* Heading */}
         <div className='mx-auto max-w-3xl text-center'>
           <h2 className='text-3xl font-bold text-neutral-900 sm:text-4xl'>

@@ -81,7 +81,7 @@ export default function Footer() {
   return (
     <section className='relative'>
       {/* Vendor CTA banner — same container + padding as the footer so edges line up */}
-      <div className='relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6'>
+      <div className='relative z-20 mx-auto w-full max-w-350 px-4 sm:px-6'>
         <div className='relative overflow-hidden rounded-[14px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
           <div className='grid grid-cols-1 items-end gap-2 md:grid-cols-[minmax(0,1fr)_auto] md:gap-6'>
             {/* Copy */}

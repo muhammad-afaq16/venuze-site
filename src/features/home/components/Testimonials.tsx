@@ -100,7 +100,7 @@ export default function Testimonials() {
 
   return (
     <section className='bg-gradient-to-br from-amber-100 via-orange-100 to-pink-200 px-6 py-16 sm:py-20'>
-      <div className='mx-auto max-w-6xl'>
+      <div className='mx-auto max-w-350'>
         {/* Heading */}
         <div className='max-w-4xl mx-auto text-center'>
           <h2 className='text-3xl font-bold text-neutral-900 sm:text-4xl'>

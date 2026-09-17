@@ -335,33 +335,35 @@ export default function FeaturedVenues() {
       {/* Overlay */}
       <div className='absolute inset-0 bg-black/55' />
 
-      <div className='relative mx-auto max-w-6xl'>
+      <div className='relative mx-auto max-w-350'>
         {/* Heading */}
         <h2 className='text-center text-3xl font-semibold text-white sm:text-[2.3rem]'>
           Featured Venues
         </h2>
 
         {/* Filters */}
-        <div className='mt-6 flex flex-wrap justify-center gap-2'>
-          {filters.map((filter) => {
-            const isActive = filter === activeFilter;
+        <div className='mt-6 overflow-x-auto scrollbar-hide'>
+          <div className='flex w-max min-w-full justify-center gap-2 px-1'>
+            {filters.map((filter) => {
+              const isActive = filter === activeFilter;
 
-            return (
-              <button
-                key={filter}
-                type='button'
-                onClick={() => setActiveFilter(filter)}
-                aria-pressed={isActive}
-                className={`rounded-md cursor-pointer px-5 py-2 text-[13px] font-medium uppercase tracking-wide transition ${
-                  isActive
-                    ? 'bg-[#E63946] text-white'
-                    : 'bg-white/15 text-white/90 backdrop-blur-sm hover:bg-white/25'
-                }`}
-              >
-                {filter}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={filter}
+                  type='button'
+                  onClick={() => setActiveFilter(filter)}
+                  aria-pressed={isActive}
+                  className={`shrink-0 cursor-pointer rounded-md px-5 py-2 text-[13px] font-medium uppercase tracking-wide transition ${
+                    isActive
+                      ? 'bg-[#E63946] text-white'
+                      : 'bg-white/15 text-white/90 backdrop-blur-sm hover:bg-white/25'
+                  }`}
+                >
+                  {filter}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Carousel */}
