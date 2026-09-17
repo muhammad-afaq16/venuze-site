@@ -53,7 +53,7 @@ export default function VenueCard() {
   const nextRef = useRef(null);
 
   return (
-    <section className='bg-white px-6 py-16 sm:py-20'>
+    <section className='bg-white px-6 pt-8 pb-16 sm:pb-7'>
       <div className='mx-auto max-w-6xl'>
         {/* Heading */}
         <div className='mx-auto text-center'>
