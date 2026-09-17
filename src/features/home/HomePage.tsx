@@ -1,3 +1,4 @@
+import FeaturedVenues from './components/FeaturedVenues';
 import Hero from './components/Hero';
 import VenueCard from './components/VenueCard';
 
@@ -7,6 +8,7 @@ export default function HomePage() {
       <main className='flex-1'>
         <Hero />
         <VenueCard />
+        <FeaturedVenues />
       </main>
     </div>
   );
