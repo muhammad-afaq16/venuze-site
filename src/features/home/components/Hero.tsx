@@ -332,7 +332,7 @@ export default function Hero() {
           </div>
 
           {/* Carousel dots */}
-          <div className='mt-4 flex items-center justify-center gap-1.5'>
+          <div className='mt-4 absolute left-0 right-0 bottom-5 md:static flex items-center justify-center gap-1.5'>
             {HERO_SLIDES.map((_, index) => (
               <button
                 key={index}

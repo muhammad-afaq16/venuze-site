@@ -81,41 +81,42 @@ export default function Footer() {
   return (
     <section className='relative'>
       {/* Vendor CTA banner — same container + padding as the footer so edges line up */}
-      <div className='relative z-20 mx-auto w-full max-w-6xl px-6'>
+      <div className='relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6'>
         <div className='relative overflow-hidden rounded-[14px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
-          <div className='grid grid-cols-1 items-end gap-6 md:grid-cols-[minmax(0,1fr)_auto]'>
+          <div className='grid grid-cols-1 items-end gap-2 md:grid-cols-[minmax(0,1fr)_auto] md:gap-6'>
             {/* Copy */}
-            <div className='px-6 pb-8 pt-8 sm:px-10 md:pb-10'>
-              <h3 className='text-[26px] font-semibold leading-[1.18] tracking-[-0.3px] text-white sm:text-[28px]'>
+            <div className='px-4 pb-4 pt-7 text-center sm:px-10 sm:pb-8 sm:pt-8 sm:text-left md:pb-10'>
+              <h3 className='text-[20px] font-semibold leading-[24px] tracking-[-0.3px] text-white sm:text-[28px] sm:leading-[33px]'>
                 Turn Your Venue into a
-                <br className='hidden sm:block' /> Destination
+                <br />
+                Destination
               </h3>
 
-              <p className='mt-2.5 max-w-[440px] text-[14px] font-medium leading-[20px] text-white/95'>
+              <p className='mx-auto mt-2.5 max-w-[280px] text-[12px] font-medium leading-[17px] text-white/95 sm:mx-0 sm:max-w-[440px] sm:text-[14px] sm:leading-[20px]'>
                 List your space on Venuze and unlock new revenue opportunities.
                 Reach clients looking for venues just like yours.
               </p>
 
               <Link
                 href='/vendors/join'
-                className='mt-5 inline-flex h-[38px] items-center rounded-[8px] bg-black px-6 text-[13px] font-medium text-white transition hover:bg-neutral-800'
+                className='mt-4 inline-flex h-[32px] items-center rounded-[7px] bg-black px-5 text-[12px] font-medium text-white transition hover:bg-neutral-800 sm:mt-5 sm:h-[38px] sm:rounded-[8px] sm:px-6 sm:text-[13px]'
               >
                 List Your Venue
               </Link>
             </div>
 
-            {/* Illustration — sits on the baseline instead of being absolutely clipped */}
-            <div className='relative flex justify-end self-end'>
+            {/* Illustration */}
+            <div className='relative flex justify-center self-end md:justify-end'>
               <img
                 src='/images/home/cta-illustration.png'
                 alt=''
                 aria-hidden='true'
-                className='block h-auto w-[240px] max-w-full object-contain object-bottom sm:w-[300px] lg:w-[340px]'
+                className='block h-auto w-[190px] object-contain object-bottom sm:w-[300px] lg:w-[340px]'
               />
             </div>
           </div>
 
-          {/* Arrow — decorative, anchored to the gap between copy and art */}
+          {/* Arrow */}
           <Image
             src='/svgs/arrow.png'
             alt=''
@@ -150,18 +151,18 @@ export default function Footer() {
               <div className='mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4'>
                 {footerColumns.map((column) => (
                   <div key={column.title}>
-                    <h4 className='text-sm font-semibold text-white'>
+                    <h4 className='text-sm font-semibold text-[#A6A6A6]'>
                       {column.title}
                     </h4>
                     <ul className='mt-4 space-y-3'>
                       {column.links.map((link) => (
                         <li key={link}>
-                          <a
+                          <Link
                             href='#'
-                            className='text-sm text-neutral-400 transition hover:text-white'
+                            className='text-sm text-[#FFFFFF] transition hover:text-neutral-300'
                           >
                             {link}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -194,7 +195,7 @@ export default function Footer() {
                     type='button'
                     onClick={handleSend}
                     disabled={sending}
-                    className='cursor-pointer rounded-[10px] bg-[#FF5037] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600 disabled:opacity-60'
+                    className='cursor-pointer rounded-[10px] bg-[#FF5037] px-12 py-2 md:px-6 md:py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600 disabled:opacity-60'
                   >
                     {sending ? 'Sending…' : 'Send'}
                   </button>

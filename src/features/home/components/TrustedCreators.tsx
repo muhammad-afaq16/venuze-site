@@ -129,7 +129,7 @@ export default function TrustedCreators() {
           </Swiper>
 
           {/* Nav arrows */}
-          <div className='mt-5 flex justify-end gap-3'>
+          <div className='mt-5 hidden justify-end gap-3 lg:flex'>
             <button
               ref={prevRef}
               aria-label='Previous'
@@ -147,51 +147,52 @@ export default function TrustedCreators() {
           </div>
         </div>
       </div>
-        {/* Vendor CTA banner */}
-        <div className='-mt-16 mx-auto max-w-6xl px-4'>
-          <div className='relative h-[198px] overflow-hidden rounded-[13px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
-            {/* Content */}
-            <div className='absolute left-[7%] top-[20px] z-20'>
-              <h3 className='text-[28px] font-semibold leading-[33px] tracking-[-0.3px] text-white'>
-                Grow Your Business with
-                <br />
-                Venuze
-              </h3>
+      {/* Vendor CTA banner */}
+      <div className='-mt-10 sm:-mt-16 mx-auto max-w-6xl px-4'>
+        <div className='relative h-[280px] sm:h-[230px] md:h-[198px] overflow-hidden rounded-[13px] bg-[linear-gradient(105deg,#FF786A_0%,#FF4F37_48%,#FFC331_100%)]'>
+          {/* Content */}
+          {/* Content */}
+          <div className='absolute left-1/2 top-[16px] z-20 w-full -translate-x-1/2 px-4 text-center sm:left-[7%] sm:top-[20px] sm:w-auto sm:translate-x-0 sm:px-0 sm:text-left'>
+            <h3 className='text-[20px] font-semibold leading-[24px] tracking-[-0.3px] text-white sm:text-[24px] sm:leading-[28px] md:text-[28px] md:leading-[33px]'>
+              Grow Your Business with
+              <br />
+              Venuze
+            </h3>
 
-              <p className='mt-[9px] max-w-[500px] text-[14px] font-medium leading-[20px] text-white'>
-                Showcase your services to thousands of event organizers and
-                creators
-                <br />
-                searching for talent like yours.
-              </p>
+            <p className='mx-auto mt-[9px] max-w-[260px] text-[12px] font-medium leading-[17px] text-white sm:mx-0 sm:max-w-[400px] sm:text-[13px] sm:leading-[19px] md:max-w-[500px] md:text-[14px] md:leading-[20px]'>
+              Showcase your services to thousands of event organizers and
+              creators
+              <br className='hidden md:block' /> searching for talent like
+              yours.
+            </p>
 
-              <Link
-                href='/vendors/join'
-                className='mt-[14px] inline-flex h-[34px] items-center rounded-[6px] bg-black px-[25px] text-[13px] font-medium text-white'
-              >
-                Join as a Vendor
-              </Link>
-            </div>
-
-            {/* Arrow */}
-            <Image
-              src='/svgs/arrow.png'
-              alt=''
-              aria-hidden='true'
-              width={140}
-              height={70}
-              className='absolute left-[34%] top-[120px] z-10 w-[135px]'
-            />
-
-            {/* Illustration */}
-            <img
-              src='/images/home/cta-illustration.png'
-              alt=''
-              aria-hidden='true'
-              className='absolute bottom-0 right-[3%] z-10 w-[320px] lg:w-[350px]'
-            />
+            <Link
+              href='/vendors/join'
+              className='mt-[12px] inline-flex h-[30px] items-center rounded-[6px] bg-black px-[18px] text-[12px] font-medium text-white sm:mt-[14px] sm:h-[34px] sm:px-[25px] sm:text-[13px]'
+            >
+              Join as a Vendor
+            </Link>
           </div>
+
+          {/* Arrow */}
+          <Image
+            src='/svgs/arrow.png'
+            alt=''
+            aria-hidden='true'
+            width={140}
+            height={70}
+            className='absolute left-[34%] hidden lg:block top-[165px] sm:top-[140px] md:top-[120px] z-10 w-[90px] sm:w-[110px] md:w-[135px]'
+          />
+
+          {/* Illustration */}
+          <img
+            src='/images/home/cta-illustration.png'
+            alt=''
+            aria-hidden='true'
+            className='absolute bottom-0 left-1/2 z-10 w-[190px] -translate-x-1/2 sm:left-auto sm:right-[3%] sm:translate-x-0 sm:w-[260px] md:w-[320px] lg:w-[350px]'
+          />
         </div>
+      </div>
     </section>
   );
 }

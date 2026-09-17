@@ -61,7 +61,7 @@ export default function Navbar() {
         <div className='relative'>
           <button
             onClick={() => toggle('listing')}
-            className='flex cursor-pointer items-center gap-1 rounded-[10px] bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-white/90'
+            className='flex cursor-pointer items-center gap-1 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-white/90'
           >
             Add your listing
             <ChevronDown

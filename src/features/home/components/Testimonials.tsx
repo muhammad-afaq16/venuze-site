@@ -114,7 +114,7 @@ export default function Testimonials() {
         </div>
 
         {/* Stats */}
-        <div className='mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4'>
+        <div className='mt-8 grid grid-cols-2 gap-4 xl:grid-cols-4'>
           {stats.map((stat) => (
             <div
               key={stat.label}
@@ -196,7 +196,7 @@ export default function Testimonials() {
           </Swiper>
 
           {/* Navigation Arrows */}
-          <div className='mt-6 flex justify-end gap-3'>
+          <div className='mt-6 hidden justify-end gap-3 lg:flex'>
             <button
               ref={prevRef}
               type='button'

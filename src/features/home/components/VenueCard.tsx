@@ -57,7 +57,7 @@ export default function VenueCard() {
       <div className='mx-auto max-w-6xl'>
         {/* Heading */}
         <div className='mx-auto text-center'>
-          <h2 className='text-3xl font-semibold text-[#000000] sm:text-[2.3rem] tracking-normal'>
+          <h2 className='text-2xl font-semibold text-[#000000] sm:text-[2.3rem] tracking-normal'>
             Find The Best Venue For Any Occasion
           </h2>
           <p className='mt-2 max-w-4xl mx-auto text-[#000000]'>
@@ -85,9 +85,10 @@ export default function VenueCard() {
               nextEl: nextRef.current,
             }}
             spaceBetween={24}
-            slidesPerView={1.15}
+            slidesPerView={1}
             breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 24 },
+              640: { slidesPerView: 1, spaceBetween: 24 },
+              768: { slidesPerView: 3, spaceBetween: 24 },
               1024: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >

@@ -407,7 +407,7 @@ export default function FeaturedVenues() {
           </Swiper>
 
           {/* Navigation */}
-          <div className='mt-6 flex justify-end gap-3'>
+          <div className='mt-6 hidden justify-end gap-3 lg:flex'>
             <button
               ref={prevRef}
               type='button'
