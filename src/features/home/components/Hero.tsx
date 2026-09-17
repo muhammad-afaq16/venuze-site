@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
 import Link from 'next/link';
@@ -20,23 +20,33 @@ const LOCATION_OPTIONS = ['Dubai, UAE', 'Abu Dhabi, UAE', 'Sharjah, UAE'];
 const DATE_OPTIONS = ['Anytime', 'Today', 'This weekend', 'Next weekend'];
 const GUEST_OPTIONS = ['1-10', '10-20', '20-50', '50+'];
 
+// Background carousel images
+const HERO_SLIDES = [
+  '/images/home/hero-bg.png',
+  '/images/home/hero-bg-2.jpg',
+  '/images/home/hero-bg-3.jpg',
+];
+
+const AUTOPLAY_INTERVAL = 4000; // ms
+
 type DropdownKey = 'listing' | 'lang' | 'location' | 'date' | 'guests';
 
 export default function Hero() {
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const [selectedLang, setSelectedLang] = useState(LANGUAGE_OPTIONS[0]);
   const [selectedLocation, setSelectedLocation] = useState(LOCATION_OPTIONS[0]);
   const [selectedDate, setSelectedDate] = useState(DATE_OPTIONS[0]);
   const [selectedGuests, setSelectedGuests] = useState(GUEST_OPTIONS[1]);
 
+  // Carousel state
+  const [activeSlide, setActiveSlide] = useState(0);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target;
+
+      if (target instanceof Element && !target.closest('[data-dropdown]')) {
         setOpenDropdown(null);
       }
     }
@@ -44,22 +54,32 @@ export default function Hero() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Autoplay carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, AUTOPLAY_INTERVAL);
+    return () => clearInterval(timer);
+  }, []);
+
   const toggle = (key: DropdownKey) =>
     setOpenDropdown((prev) => (prev === key ? null : key));
 
   return (
-    <section
-      ref={containerRef}
-      className='relative w-full h-140 md:h-155 overflow-hidden rounded-b-2xl'
-    >
-      {/* Background image */}
-      <Image
-        src='/images/home/hero-bg.png'
-        alt='People celebrating at a venue'
-        fill
-        priority
-        className='object-cover object-center'
-      />
+    <section className='relative w-full min-h-[70vh] md:h-155 overflow-hidden md:rounded-b-2xl'>
+      {/* Background image carousel */}
+      {HERO_SLIDES.map((src, index) => (
+        <Image
+          key={src}
+          src={src}
+          alt='People celebrating at a venue'
+          fill
+          priority={index === 0}
+          className={`object-cover object-center transition-opacity duration-700 ${
+            index === activeSlide ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
 
       {/* Top navbar */}
       <div className='relative z-30 flex items-center justify-between px-6 md:px-10 pt-6'>
@@ -74,7 +94,7 @@ export default function Hero() {
 
         <div className='flex items-center gap-3'>
           {/* Add your listing dropdown */}
-          <div className='relative'>
+          <div data-dropdown className='relative'>
             <button
               onClick={() => toggle('listing')}
               className='flex cursor-pointer items-center gap-1 rounded-[10px] bg-white px-4 py-2 text-sm font-medium text-[#FF5037] transition-colors hover:bg-white/90'
@@ -104,7 +124,7 @@ export default function Hero() {
           </div>
 
           {/* Language dropdown */}
-          <div className='relative'>
+          <div data-dropdown className='relative'>
             <button
               onClick={() => toggle('lang')}
               className='flex cursor-pointer items-center gap-1 rounded-[10px] bg-white px-3 py-2 text-sm font-medium text-[#FF5037] transition-colors hover:bg-white/90'
@@ -180,7 +200,10 @@ export default function Hero() {
 
           <div className='flex flex-col items-stretch gap-3 rounded-2xl bg-white p-3 shadow-xl md:flex-row md:items-center md:gap-0 md:rounded-[10px]'>
             {/* Where */}
-            <div className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
+            <div
+              data-dropdown
+              className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'
+            >
               <p className='text-xs text-[#808080]'>Where</p>
               <button
                 onClick={() => toggle('location')}
@@ -209,7 +232,10 @@ export default function Hero() {
             </div>
 
             {/* When */}
-            <div className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'>
+            <div
+              data-dropdown
+              className='relative flex-1 border-b border-gray-200 px-4 py-2 text-left md:border-b-0 md:border-r'
+            >
               <p className='text-xs text-[#808080]'>When</p>
               <button
                 onClick={() => toggle('date')}
@@ -238,7 +264,7 @@ export default function Hero() {
             </div>
 
             {/* Guests */}
-            <div className='relative flex-1 px-4 py-2 text-left'>
+            <div data-dropdown className='relative flex-1 px-4 py-2 text-left'>
               <p className='text-xs text-[#808080]'>Guests</p>
               <button
                 onClick={() => toggle('guests')}
@@ -275,6 +301,22 @@ export default function Hero() {
               />
               Search
             </button>
+          </div>
+
+          {/* Carousel dots */}
+          <div className='mt-4 flex items-center justify-center gap-1.5'>
+            {HERO_SLIDES.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`h-1.5 rounded-full transition-all ${
+                  index === activeSlide
+                    ? 'w-6 bg-[#FF5037]'
+                    : 'w-1.5 bg-white/60 hover:bg-white/80'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
