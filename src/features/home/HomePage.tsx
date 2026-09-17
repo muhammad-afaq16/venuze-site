@@ -1,5 +1,6 @@
 import FeaturedVenues from './components/FeaturedVenues';
 import Hero from './components/Hero';
+import TrustedCreators from './components/TrustedCreators';
 import VenueCard from './components/VenueCard';
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
         <Hero />
         <VenueCard />
         <FeaturedVenues />
+        <TrustedCreators/>
       </main>
     </div>
   );
