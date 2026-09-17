@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
 import Link from 'next/link';
+import MobileNavbar from './MobileNavbar';
 
 const LISTING_OPTIONS = [
   { label: 'List your Venue', href: '/list/venue' },
@@ -81,8 +82,13 @@ export default function Hero() {
         />
       ))}
 
+      {/* Mobile navbar */}
+      <div className='md:hidden'>
+        <MobileNavbar />
+      </div>
+
       {/* Top navbar */}
-      <div className='relative z-30 flex items-center justify-between px-6 md:px-10 pt-6'>
+      <div className='relative z-30 hidden items-center justify-between px-6 pt-6 md:flex md:px-10'>
         <div className='flex items-center gap-2'>
           <Image
             src='/images/home/venuze-logo.png'
@@ -165,8 +171,8 @@ export default function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className='h-full flex flex-col items-center justify-center'>
-        <div className='relative z-10 mb-9 flex flex-col items-center text-center'>
+      <div className='absolute mt-9 md:mt-0 inset-0 z-10 flex flex-col items-center justify-center'>
+        <div className='relative z-10 mb-5 md:mb-9 flex flex-col items-center text-center'>
           <h1 className='max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-4xl md:text-[3.15rem]'>
             Celebrate in venues
             <br />
@@ -176,7 +182,7 @@ export default function Hero() {
 
         <div className='z-10 w-[92%] max-w-3xl'>
           <div className='flex justify-center'>
-            <div className='relative z-20 -mb-3 flex rounded-[10px] bg-white px-2 py-[.44rem] shadow-md'>
+            <div className='relative hidden md:flex z-20 -mb-3 rounded-[10px] bg-white px-2 py-[.44rem] shadow-md'>
               <button className='flex items-center gap-1.5 rounded-[10px] bg-[#FF5037] px-4 py-2 text-sm font-medium text-white'>
                 <Image
                   src='/svgs/venue.svg'
@@ -199,6 +205,28 @@ export default function Hero() {
           </div>
 
           <div className='flex flex-col items-stretch gap-3 rounded-2xl bg-white p-3 shadow-xl md:flex-row md:items-center md:gap-0 md:rounded-[10px]'>
+            <div className='flex gap-2'>
+              <button className='flex flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-[#FF5037] px-4 py-2 text-sm font-medium text-white'>
+                <Image
+                  src='/svgs/venue.svg'
+                  alt='Venue'
+                  width={18}
+                  height={18}
+                />
+                Venue
+              </button>
+
+              <button className='flex flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-[#EEEEF0] px-4 py-2 text-sm font-medium text-[#666]'>
+                <Image
+                  src='/svgs/vendors.svg'
+                  alt='Vendors'
+                  width={18}
+                  height={18}
+                />
+                Vendors
+              </button>
+            </div>
+
             {/* Where */}
             <div
               data-dropdown
@@ -292,7 +320,7 @@ export default function Hero() {
               )}
             </div>
 
-            <button className='flex cursor-pointer items-center justify-center gap-2 self-end rounded-[10px] bg-[#FF5037] px-6 py-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-white transition-colors hover:bg-[#e8452f]'>
+            <button className='flex cursor-pointer items-center justify-center gap-2 md:self-end rounded-[10px] bg-[#FF5037] px-6 py-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-white transition-colors hover:bg-[#e8452f]'>
               <Image
                 src='/svgs/search.svg'
                 alt='Search'
