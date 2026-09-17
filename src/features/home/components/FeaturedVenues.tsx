@@ -1,13 +1,24 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import type { MouseEvent, SVGProps } from 'react';
+import type { MouseEvent } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, Navigation } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+
+import {
+  Heart,
+  MapPin,
+  UsersRound,
+  Maximize2,
+  CarFront,
+  Share2,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 /* ---------------- Types ---------------- */
 
@@ -24,16 +35,6 @@ type Venue = {
   unit: string;
   verified: boolean;
   images: string[];
-};
-
-type IconProps = SVGProps<SVGSVGElement>;
-
-type HeartIconProps = IconProps & {
-  filled: boolean;
-};
-
-type ChevronProps = IconProps & {
-  dir?: 'left' | 'right';
 };
 
 type VenueCardProps = {
@@ -163,143 +164,6 @@ const venues: Venue[] = [
   },
 ];
 
-/* ---------------- Icons ---------------- */
-
-function PinIcon(props: IconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      {...props}
-    >
-      <path
-        d='M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-      <circle cx='12' cy='10' r='2.5' />
-    </svg>
-  );
-}
-
-function GuestsIcon(props: IconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='1.8'
-      {...props}
-    >
-      <circle cx='9' cy='8' r='3.2' />
-      <path d='M3.5 19a5.5 5.5 0 0 1 11 0' strokeLinecap='round' />
-      <path d='M16 5.5a3.2 3.2 0 0 1 0 5' strokeLinecap='round' />
-      <path d='M17.5 14.2A5.5 5.5 0 0 1 20.5 19' strokeLinecap='round' />
-    </svg>
-  );
-}
-
-function AreaIcon(props: IconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='1.8'
-      {...props}
-    >
-      <path d='M4 9V4h5' strokeLinecap='round' strokeLinejoin='round' />
-      <path d='M20 15v5h-5' strokeLinecap='round' strokeLinejoin='round' />
-      <path d='M4 4l6 6' strokeLinecap='round' />
-      <path d='M20 20l-6-6' strokeLinecap='round' />
-    </svg>
-  );
-}
-
-function ParkingIcon(props: IconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='1.8'
-      {...props}
-    >
-      <path
-        d='M3 16v-3.2l1.8-4A2 2 0 0 1 6.6 7.6h10.8a2 2 0 0 1 1.8 1.2l1.8 4V16'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-      <path d='M3 16h18' strokeLinecap='round' />
-      <circle cx='7' cy='16.5' r='1.5' />
-      <circle cx='17' cy='16.5' r='1.5' />
-    </svg>
-  );
-}
-
-function ShareIcon(props: IconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='1.8'
-      {...props}
-    >
-      <path d='M12 15V4' strokeLinecap='round' />
-
-      <path
-        d='M8.5 7.5L12 4l3.5 3.5'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-
-      <path
-        d='M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13'
-        strokeLinecap='round'
-      />
-    </svg>
-  );
-}
-
-function HeartIcon({ filled, ...props }: HeartIconProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill={filled ? 'currentColor' : 'none'}
-      stroke='currentColor'
-      strokeWidth='1.8'
-      {...props}
-    >
-      <path
-        d='M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7-1.2c0 4.8-7 9.2-7 9.2Z'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-    </svg>
-  );
-}
-
-function Chevron({ dir = 'left', ...props }: ChevronProps) {
-  return (
-    <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      {...props}
-    >
-      <path
-        d={dir === 'left' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6'}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-    </svg>
-  );
-}
-
 /* ---------------- Venue Card ---------------- */
 
 function VenueListingCard({ venue }: VenueCardProps) {
@@ -317,16 +181,16 @@ function VenueListingCard({ venue }: VenueCardProps) {
   return (
     <article className='group overflow-hidden rounded-2xl bg-white shadow-lg'>
       {/* Image */}
-      <div className='relative m-2 aspect-[4/3] overflow-hidden rounded-xl'>
+      <div className='relative aspect-[4/3] overflow-hidden'>
         <img
           src={venue.images[index]}
           alt={venue.title}
-          className='h-full w-full object-cover'
+          className='w-full object-cover'
         />
 
         {/* Verified */}
         {venue.verified && (
-          <span className='absolute left-2.5 top-2.5 rounded-md bg-black/60 px-2 py-1 text-[10px] font-medium text-white backdrop-blur-sm'>
+          <span className='absolute left-2.5 top-2.5 rounded-full bg-black/60 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-sm'>
             Verified
           </span>
         )}
@@ -336,18 +200,18 @@ function VenueListingCard({ venue }: VenueCardProps) {
           <button
             type='button'
             aria-label='Share venue'
-            className='flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white backdrop-blur-sm transition hover:bg-black/70'
+            className='flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition hover:bg-black/70'
           >
-            <ShareIcon className='h-4 w-4' />
+            <Share2 className='h-4 w-4' />
           </button>
 
           <button
             type='button'
             aria-label={saved ? 'Remove from saved' : 'Save venue'}
             onClick={() => setSaved((s) => !s)}
-            className='flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white backdrop-blur-sm transition hover:bg-black/70'
+            className='flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition hover:bg-black/70'
           >
-            <HeartIcon filled={saved} className='h-4 w-4' />
+            <Heart className='h-4 w-4' fill={saved ? 'currentColor' : 'none'} />
           </button>
         </div>
 
@@ -358,18 +222,18 @@ function VenueListingCard({ venue }: VenueCardProps) {
               type='button'
               aria-label='Previous image'
               onClick={(e) => go(e, -1)}
-              className='absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-neutral-800 opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100'
+              className='absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100'
             >
-              <Chevron dir='left' className='h-4 w-4' />
+              <ChevronLeft className='h-4 w-4 text-white' />
             </button>
 
             <button
               type='button'
               aria-label='Next image'
               onClick={(e) => go(e, 1)}
-              className='absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-neutral-800 opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100'
+              className='absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100'
             >
-              <Chevron dir='right' className='h-4 w-4' />
+              <ChevronRight className='h-4 w-4 text-white' />
             </button>
 
             {/* Dots */}
@@ -378,7 +242,7 @@ function VenueListingCard({ venue }: VenueCardProps) {
                 <span
                   key={img}
                   className={`h-1.5 rounded-full transition-all ${
-                    i === index ? 'w-4 bg-white' : 'w-1.5 bg-white/60'
+                    i === index ? 'w-1.5 bg-white' : 'w-1.5 bg-white/60'
                   }`}
                 />
               ))}
@@ -394,36 +258,36 @@ function VenueListingCard({ venue }: VenueCardProps) {
         </h3>
 
         {/* Location */}
-        <p className='mt-1.5 flex items-center gap-1 text-[13px] text-[#E63946]'>
-          <PinIcon className='h-3.5 w-3.5' />
+        <p className='mt-1.5 flex items-center font-medium gap-1 text-[13px] text-[#E63946]'>
+          <MapPin className='h-3.5 w-3.5' />
           {venue.location}
         </p>
 
         {/* Details */}
-        <ul className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-neutral-600'>
-          <li className='flex items-center gap-1'>
-            <GuestsIcon className='h-3.5 w-3.5' />
+        <ul className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-[#364153]'>
+          <li className='flex bg-[#F9FAFB] py-[0.32rem] rounded-full px-2 items-center gap-1'>
+            <UsersRound className='h-3.5 w-3.5' />
             {venue.capacity}
           </li>
 
-          <li className='flex items-center gap-1'>
-            <AreaIcon className='h-3.5 w-3.5' />
+          <li className='flex bg-[#F9FAFB] py-[0.32rem] rounded-full px-2 items-center gap-1'>
+            <Maximize2 className='h-3.5 w-3.5' />
             {venue.area}
           </li>
 
-          <li className='flex items-center gap-1'>
-            <ParkingIcon className='h-3.5 w-3.5' />
+          <li className='flex bg-[#F9FAFB] py-[0.32rem] rounded-full px-2 items-center gap-1'>
+            <CarFront className='h-3.5 w-3.5' />
             {venue.parking}
           </li>
         </ul>
 
         {/* Extra count */}
-        <p className='mt-2 text-[11px] text-neutral-400'>
+        <p className='mt-2 text-[11px] bg-[#F9FAFB] py-[0.32rem] rounded-full px-2 text-[#364153]'>
           +{venue.extraCount} more
         </p>
 
         {/* Price */}
-        <div className='mt-3 flex items-center justify-between border-t border-neutral-200 pt-3'>
+        <div className='mt-3 flex items-center justify-between border-t border-[#C5C5C5] pt-3'>
           <p className='text-[13px] text-neutral-700'>
             From{' '}
             <span className='font-semibold text-[#111111]'>
@@ -433,7 +297,7 @@ function VenueListingCard({ venue }: VenueCardProps) {
 
           <a
             href={`/venues/${venue.id}`}
-            className='rounded-md border border-[#E63946] px-3 py-1.5 text-[12px] font-medium text-[#E63946] transition hover:bg-[#E63946] hover:text-white'
+            className='rounded-[10px] border border-[#E63946] px-3 py-1.5 text-[12px] font-medium text-[#E63946] transition hover:bg-[#E63946] hover:text-white'
           >
             View details
           </a>
@@ -462,7 +326,7 @@ export default function FeaturedVenues() {
     <section className='relative overflow-hidden bg-[#1b1512] px-6 py-16 sm:py-20'>
       {/* Background */}
       <img
-        src='/images/home/venue-card/featured-bg.png'
+        src='/images/home/featured-venues/bg.png'
         alt=''
         aria-hidden='true'
         className='absolute inset-0 h-full w-full object-cover'
@@ -488,7 +352,7 @@ export default function FeaturedVenues() {
                 type='button'
                 onClick={() => setActiveFilter(filter)}
                 aria-pressed={isActive}
-                className={`rounded-md px-5 py-2 text-[13px] font-medium uppercase tracking-wide transition ${
+                className={`rounded-md cursor-pointer px-5 py-2 text-[13px] font-medium uppercase tracking-wide transition ${
                   isActive
                     ? 'bg-[#E63946] text-white'
                     : 'bg-white/15 text-white/90 backdrop-blur-sm hover:bg-white/25'
@@ -550,7 +414,7 @@ export default function FeaturedVenues() {
               aria-label='Previous'
               className='flex h-10 w-10 items-center justify-center rounded-full border border-white/60 text-white transition hover:bg-white hover:text-neutral-900 disabled:opacity-40'
             >
-              <Chevron dir='left' className='h-5 w-5' />
+              <ChevronLeft className='h-5 w-5' />
             </button>
 
             <button
@@ -559,7 +423,7 @@ export default function FeaturedVenues() {
               aria-label='Next'
               className='flex h-10 w-10 items-center justify-center rounded-full border border-white/60 text-white transition hover:bg-white hover:text-neutral-900 disabled:opacity-40'
             >
-              <Chevron dir='right' className='h-5 w-5' />
+              <ChevronRight className='h-5 w-5' />
             </button>
           </div>
         </div>
