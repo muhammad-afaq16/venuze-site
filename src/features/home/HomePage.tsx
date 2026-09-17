@@ -1,5 +1,6 @@
 import FeaturedVenues from './components/FeaturedVenues';
 import Hero from './components/Hero';
+import Testimonials from './components/Testimonials';
 import TrustedCreators from './components/TrustedCreators';
 import VenueCard from './components/VenueCard';
 
@@ -10,7 +11,8 @@ export default function HomePage() {
         <Hero />
         <VenueCard />
         <FeaturedVenues />
-        <TrustedCreators/>
+        <TrustedCreators />
+        <Testimonials />
       </main>
     </div>
   );
