@@ -6,19 +6,34 @@ import PathToVenue from './components/PathToVenue';
 import Testimonials from './components/Testimonials';
 import TrustedCreators from './components/TrustedCreators';
 import VenueCard from './components/VenueCard';
+import SectionReveal from './components/SectionReveal';
 
 export default function HomePage() {
   return (
     <div className='flex min-h-screen flex-col bg-background font-sans'>
       <main className='flex-1'>
         <Hero />
-        <VenueCard />
-        <FeaturedVenues />
-        <TrustedCreators />
-        <PathToVenue />
-        <Testimonials />
-        <DiscoverDestinations />
-        <Footer />
+        <SectionReveal>
+          <VenueCard />
+        </SectionReveal>
+        <SectionReveal>
+          <FeaturedVenues />
+        </SectionReveal>
+        <SectionReveal>
+          <TrustedCreators />
+        </SectionReveal>
+        <SectionReveal>
+          <PathToVenue />
+        </SectionReveal>
+        <SectionReveal>
+          <Testimonials />
+        </SectionReveal>
+        <SectionReveal>
+          <DiscoverDestinations />
+        </SectionReveal>
+        <SectionReveal>
+          <Footer />
+        </SectionReveal>
       </main>
     </div>
   );

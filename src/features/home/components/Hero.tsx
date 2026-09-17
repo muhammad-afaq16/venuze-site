@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
 import Link from 'next/link';
+import { MotionConfig, motion } from 'framer-motion';
 import MobileNavbar from './MobileNavbar';
 
 const LISTING_OPTIONS = [
@@ -67,28 +68,52 @@ export default function Hero() {
     setOpenDropdown((prev) => (prev === key ? null : key));
 
   return (
-    <section className='relative w-full min-h-[70vh] md:h-155 overflow-hidden md:rounded-b-2xl'>
+    <MotionConfig reducedMotion='user'>
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className='relative w-full min-h-[70vh] md:h-155 overflow-hidden md:rounded-b-2xl'
+      >
       {/* Background image carousel */}
       {HERO_SLIDES.map((src, index) => (
-        <Image
+        <motion.div
           key={src}
-          src={src}
-          alt='People celebrating at a venue'
-          fill
-          priority={index === 0}
-          className={`object-cover object-center transition-opacity duration-700 ${
-            index === activeSlide ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
+          initial={false}
+          animate={{
+            opacity: index === activeSlide ? 1 : 0,
+            scale: index === activeSlide ? 1.03 : 1.01,
+          }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
+          className='absolute inset-0'
+        >
+          <Image
+            src={src}
+            alt='People celebrating at a venue'
+            fill
+            priority={index === 0}
+            className='object-cover object-center'
+          />
+        </motion.div>
       ))}
 
       {/* Mobile navbar */}
-      <div className='md:hidden'>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+        className='md:hidden'
+      >
         <MobileNavbar />
-      </div>
+      </motion.div>
 
       {/* Top navbar */}
-      <div className='relative z-30 hidden items-center justify-between px-6 pt-6 md:flex md:px-10'>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+        className='relative z-30 hidden items-center justify-between px-6 pt-6 md:flex md:px-10'
+      >
         <div className='flex items-center gap-2'>
           <Image
             src='/images/home/venuze-logo.png'
@@ -168,19 +193,34 @@ export default function Hero() {
             <User className='h-4 w-4' />
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Hero content */}
-      <div className='absolute mt-9 md:mt-0 inset-0 z-10 flex flex-col items-center justify-center'>
-        <div className='relative z-10 mb-5 md:mb-9 flex flex-col items-center text-center'>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35, duration: 0.8, ease: 'easeOut' }}
+        className='absolute mt-9 md:mt-0 inset-0 z-10 flex flex-col items-center justify-center'
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.7, ease: 'easeOut' }}
+          className='relative z-10 mb-5 md:mb-9 flex flex-col items-center text-center'
+        >
           <h1 className='max-w-2xl text-3xl font-semibold leading-none tracking-[-0.03em] text-white sm:text-4xl md:text-[3.15rem]'>
             Celebrate in venues
             <br />
             big and small
           </h1>
-        </div>
+        </motion.div>
 
-        <div className='z-10 w-[92%] max-w-3xl'>
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.58, duration: 0.8, ease: 'easeOut' }}
+          className='z-10 w-[92%] max-w-3xl'
+        >
           <div className='flex justify-center'>
             <div className='relative hidden md:flex z-20 -mb-3 rounded-[10px] bg-white px-2 py-[.44rem] shadow-md'>
               <button className='flex items-center gap-1.5 rounded-[10px] bg-[#FF5037] px-4 py-2 text-sm font-medium text-white'>
@@ -346,8 +386,9 @@ export default function Hero() {
               />
             ))}
           </div>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+      </motion.section>
+    </MotionConfig>
   );
 }
